@@ -21,23 +21,36 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
     
-    - name: Clean target workspace
-      run: dotnet clean
+    - name: Build Docker Image
+      run: docker build . --tag boxfitter
       
-    - name: Build application
-      run: dotnet build  
-
-    - name: Test application
-      run: dotnet test  
+    - name: Spin Up Docker Image
+      run: docker run --name boxfitter -d -p 5001:8080 boxfitter
       
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: BoxFitter
-        path: ./BoxFitter/bin/Release/net8.0/publish
+    - name: Run Acceptance Tests
+      run: dotnet test
+      
+    - name: Kill Docker Image
+      run: docker kill boxfitter
+      
+#        
+#    - name: Install .NET Core
+#      uses: actions/setup-dotnet@v4
+#      with:
+#        dotnet-version: 8.0.x
+#    
+#    - name: Clean target workspace
+#      run: dotnet clean
+#      
+#    - name: Build application
+#      run: dotnet build  
+#
+#    - name: Test application
+#      run: dotnet test  
+      
+#    - name: Upload build artifacts
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: BoxFitter
+#        path: ./BoxFitter/bin/Release/net8.0/publish
