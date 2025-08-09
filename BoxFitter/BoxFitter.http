@@ -1,0 +1,11 @@
+@BoxFitter_HostAddress = http://localhost:5001
+
+GET {{BoxFitter_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{BoxFitter_HostAddress}}/pack-box/
+Accept: application/json
+
+###
