@@ -29,7 +29,7 @@ jobs:
       run: docker run --name boxfitter -d -p 5001:8080 boxfitter
       
     - name: Run Acceptance Tests
-      run: dotnet test
+      run: cd ./BoxFitter.Tests && dotnet test
       
     - name: Kill Docker Image
       run: docker kill boxfitter
