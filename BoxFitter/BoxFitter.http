@@ -5,7 +5,7 @@ Accept: application/json
 
 ###
 
-GET {{BoxFitter_HostAddress}}/pack-box/
+POST {{BoxFitter_HostAddress}}/pack-box/
 Accept: application/json
 
 ###
