@@ -2,7 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter", "BoxFitter\BoxFitter.csproj", "{8B0E9C6A-0F14-4E69-838B-1D237B608425}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.Tests", "BoxFitter.Tests\BoxFitter.Tests.csproj", "{5BDF67DE-FF8E-4ABF-AB55-8D028C3E322A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.AcceptanceTests", "BoxFitter.AcceptanceTests\BoxFitter.AcceptanceTests.csproj", "{5BDF67DE-FF8E-4ABF-AB55-8D028C3E322A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.UnitTests", "BoxFitter.UnitTests\BoxFitter.UnitTests.csproj", "{5184990E-3610-4C87-B86D-31B77ECF342B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{5BDF67DE-FF8E-4ABF-AB55-8D028C3E322A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BDF67DE-FF8E-4ABF-AB55-8D028C3E322A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BDF67DE-FF8E-4ABF-AB55-8D028C3E322A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5184990E-3610-4C87-B86D-31B77ECF342B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5184990E-3610-4C87-B86D-31B77ECF342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5184990E-3610-4C87-B86D-31B77ECF342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5184990E-3610-4C87-B86D-31B77ECF342B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

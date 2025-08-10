@@ -1,7 +1,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace BoxFitter.Tests;
+namespace BoxFitter.AcceptanceTests;
 
 public class BoxFitterTests
 {
