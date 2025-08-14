@@ -22,4 +22,8 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\BoxFitter.Domain\BoxFitter.Domain.csproj" />
+    </ItemGroup>
+
 </Project>

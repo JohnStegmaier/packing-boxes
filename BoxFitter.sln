@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.AcceptanceTests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.UnitTests", "BoxFitter.UnitTests\BoxFitter.UnitTests.csproj", "{5184990E-3610-4C87-B86D-31B77ECF342B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoxFitter.Domain", "BoxFitter.Domain\BoxFitter.Domain.csproj", "{3247594A-65C4-4C8B-9992-4AAE04F4DFF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{5184990E-3610-4C87-B86D-31B77ECF342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5184990E-3610-4C87-B86D-31B77ECF342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5184990E-3610-4C87-B86D-31B77ECF342B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3247594A-65C4-4C8B-9992-4AAE04F4DFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3247594A-65C4-4C8B-9992-4AAE04F4DFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3247594A-65C4-4C8B-9992-4AAE04F4DFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3247594A-65C4-4C8B-9992-4AAE04F4DFF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
