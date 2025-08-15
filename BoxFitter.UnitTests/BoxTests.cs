@@ -50,13 +50,35 @@ public class BoxTests
     }
 
     [Fact]
+    public void ShouldPackBookInBox()
+    {
+        var bookWithAllDetails = new List<Book> 
+        {
+            new Book() {SKU = "320.12", Name = "TEST_BOOK", Height = 4}
+        };
+        var packingList = boxFitter.PackBoxes(bookWithAllDetails);
+        
+        
+        Box BoxWithDetailedBookInside = new Box() {PackedBooks = bookWithAllDetails, Size = BoxSize.Four};
+        
+        var expectedPackingList = new PackingList(
+            PackedBoxes: 
+            new List<Box> {BoxWithDetailedBookInside}, 
+            BooksThatCannotBePacked: 
+            new List<Book>()
+        );
+        
+        Assert.Equal(expectedPackingList.PackedBoxes[0].PackedBooks[0] , packingList.PackedBoxes[0].PackedBooks[0]);
+    }
+
+    [Fact]
     public void ShouldPackTwoIdenticalItemsThatFitInToOneBox()
     {
         //get a list with two books of size 2 / 3 / 4
         var twoIdenticalSizeBooks = new List<Book>
         {
             new Book() {Height = 2},
-            new Book() {Height = 2}
+            new Book() {Height = 2},
         };
         
         //pack them in the box

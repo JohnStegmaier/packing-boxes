@@ -13,18 +13,26 @@ public class SimpleBoxFitter : IBoxFitter
             return new PackingList(new List<Box>(), new List<Book>());
         }
 
+        var boxToBePacked = new Box();
+        
         foreach (var book in booksToBePacked)
         {
             switch (book.Height)
             {
                 case <= 4:
-                    listOfPackedBoxes.Add(new Box() {Size = BoxSize.Four});
+                    boxToBePacked.Size = BoxSize.Four;
+                    boxToBePacked.PackedBooks.Add(book);
+                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 case <= 6:
-                    listOfPackedBoxes.Add(new Box() {Size = BoxSize.Six});
+                    boxToBePacked.Size = BoxSize.Six;
+                    boxToBePacked.PackedBooks.Add(book);
+                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 case <= 8:
-                    listOfPackedBoxes.Add(new Box() {Size = BoxSize.Eight});
+                    boxToBePacked.Size = BoxSize.Eight;
+                    boxToBePacked.PackedBooks.Add(book);
+                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 default:
                     booksThatCannotBePacked.Add(book);
