@@ -33,8 +33,7 @@ public class BoxTests
     public void ShouldPackOneBoxWhenOneBookUnderTheSizeIsGiven(int bookHeight, BoxSize expectedBoxSize)
     {
         var packingList = boxFitter.PackBoxes(GetOneBookOfSize(bookHeight));
-
-        ValidatePackingListContains(OnePackedBoxOfSize(expectedBoxSize), packingList);
+        ValidateOneBoxOfSize(expectedBoxSize, packingList);
     }
 
     [Fact]
@@ -95,7 +94,7 @@ public class BoxTests
         ValidatePackingListContains(expectedPackingList, packingList);
     }
 
-private static void ValidatePackingListContains(PackingList expectedPackingList, PackingList packingList)
+    private static void ValidatePackingListContains(PackingList expectedPackingList, PackingList packingList)
     {
         Assert.Equal(expectedPackingList.BooksThatCannotBePacked, packingList.BooksThatCannotBePacked);
         Assert.Equal(expectedPackingList.PackedBoxes, packingList.PackedBoxes);
@@ -112,6 +111,12 @@ private static void ValidatePackingListContains(PackingList expectedPackingList,
     //
     //     Assert.Equal(OneBoxOfSizeFour(), packingList);
     // }
+
+    private void ValidateOneBoxOfSize(BoxSize expectedBoxSize, PackingList packingList)
+    {
+        Assert.Single(packingList.PackedBoxes);
+        Assert.Equal(expectedBoxSize, packingList.PackedBoxes.First().Size);
+    }
 
     private static PackingList OnePackedBoxOfSize(BoxSize boxSize)
     {

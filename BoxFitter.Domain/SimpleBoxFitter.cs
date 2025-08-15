@@ -22,24 +22,22 @@ public class SimpleBoxFitter : IBoxFitter
                 case <= 4:
                     boxToBePacked.Size = BoxSize.Four;
                     boxToBePacked.PackedBooks.Add(book);
-                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 case <= 6:
                     boxToBePacked.Size = BoxSize.Six;
                     boxToBePacked.PackedBooks.Add(book);
-                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 case <= 8:
                     boxToBePacked.Size = BoxSize.Eight;
                     boxToBePacked.PackedBooks.Add(book);
-                    listOfPackedBoxes.Add(boxToBePacked);
                     break;
                 default:
                     booksThatCannotBePacked.Add(book);
                     break;
+                
             }
         }
-
+        listOfPackedBoxes.Add(boxToBePacked);
         return new PackingList(listOfPackedBoxes, booksThatCannotBePacked);
     }
 }

@@ -12,3 +12,12 @@ public enum BoxSize
     Six,
     Eight
 }
+/*
+public override bool Equals(Object obj)
+{
+    if (obj == null || !(obj is Box))
+        return false;
+    else
+        return this.Breed == ((Dog) obj).Breed;
+}
+*/
