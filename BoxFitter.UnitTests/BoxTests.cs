@@ -3,7 +3,7 @@ using BoxFitter.Domain;
 // ReSharper disable InconsistentNaming
 
 namespace BoxFitter.UnitTests;
- 
+
 
 [SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance")]
 public class BoxTests
@@ -14,13 +14,13 @@ public class BoxTests
     public void ShouldNotPackAnyBoxesWhenNoBooksAreGiven()
     {
         var noBooks = new List<Book>();
-        
+
         var packingList = boxFitter.PackBoxes(noBooks);
-        
+
         Assert.Empty(packingList.BooksThatCannotBePacked);
         Assert.Empty(packingList.PackedBoxes);
     }
-    
+
     [Theory]
     [InlineData(1, BoxSize.Four)]
     [InlineData(2, BoxSize.Four)]
@@ -37,25 +37,49 @@ public class BoxTests
         ValidatePackingListContains(OnePackedBoxOfSize(expectedBoxSize), packingList);
     }
 
-    private static void ValidatePackingListContains(PackingList expectedPackingList, PackingList packingList)
+    [Fact]
+    public void ShouldNotPackAnyBoxesWhenBookIsTooLarge()
+    {
+        var oversizedBook = GetOneBookOfSize(9);
+
+        var packingList = boxFitter.PackBoxes(oversizedBook);
+
+        var expectedPackingList = new PackingList(PackedBoxes: [], BooksThatCannotBePacked: oversizedBook);
+
+        ValidatePackingListContains(expectedPackingList, packingList);
+    }
+
+    [Fact]
+    public void ShouldPackTwoIdenticalItemsThatFitInToOneBox()
+    {
+        //get a list with two books of size 2 / 3 / 4
+        var twoIdenticalSizeBooks = new List<Book>
+        {
+            new Book() {Height = 2},
+            new Book() {Height = 2}
+        };
+        
+        //pack them in the box
+        var packingList = boxFitter.PackBoxes(twoIdenticalSizeBooks);
+
+        var expectedPackingList = new PackingList(
+            PackedBoxes: 
+            new List<Box> {new Box(){Size = BoxSize.Four}}, 
+            BooksThatCannotBePacked: 
+            new List<Book>()
+            );
+        
+        //should only have one box of size 4/6/8
+        ValidatePackingListContains(expectedPackingList, packingList);
+    }
+
+private static void ValidatePackingListContains(PackingList expectedPackingList, PackingList packingList)
     {
         Assert.Equal(expectedPackingList.BooksThatCannotBePacked, packingList.BooksThatCannotBePacked);
         Assert.Equal(expectedPackingList.PackedBoxes, packingList.PackedBoxes);
     }
 
-    [Fact]
-    public void ShouldNotPackAnyBoxesWhenBookIsTooLarge()
-    {
-        var oversizedBook = GetOneBookOfSize(9);
-        
-        var packingList = boxFitter.PackBoxes(oversizedBook);
 
-        var expectedPackingList = new PackingList(PackedBoxes: [], BooksThatCannotBePacked: oversizedBook);
-        
-        ValidatePackingListContains(expectedPackingList, packingList);
-    }
-    
-    
     // [Fact]
     // public void ShouldPackTwoBoxesOfSizeEightWhenTwoBooksOfSizeSevenAreGiven() 
     //     ShouldPackTwoBoxesWhenBooksOverTheSizeIsGiven()
