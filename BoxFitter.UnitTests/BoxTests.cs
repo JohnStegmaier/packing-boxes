@@ -51,23 +51,39 @@ public class BoxTests
     [Fact]
     public void ShouldPackBookInBox()
     {
-        var bookWithAllDetails = new List<Book> 
-        {
-            new Book() {SKU = "320.12", Name = "TEST_BOOK", Height = 4}
-        };
-        var packingList = boxFitter.PackBoxes(bookWithAllDetails);
+        var packingList = boxFitter.PackBoxes(GetOneBookWithAllDetails());
         
         
-        Box BoxWithDetailedBookInside = new Box() {PackedBooks = bookWithAllDetails, Size = BoxSize.Four};
-        
-        var expectedPackingList = new PackingList(
+        VerifyFirstBoxContainsTheSameBooks(
+            GetPackingListWithOneBoxOfSizeFourContainingOneBookWithAllDetails(), 
+            packingList);
+    }
+
+    private static PackingList GetPackingListWithOneBoxOfSizeFourContainingOneBookWithAllDetails()
+    {
+        Box ExpectedBox = GetBoxOfSizeFourWithBook(GetOneBookWithAllDetails());
+        var expectedPackingList = GetPackingListWithBox(ExpectedBox);
+        return expectedPackingList;
+    }
+
+    private static void VerifyFirstBoxContainsTheSameBooks(PackingList expectedPackingList, PackingList packingList)
+    {
+        Assert.Equal(expectedPackingList.PackedBoxes[0].PackedBooks[0] , packingList.PackedBoxes[0].PackedBooks[0]);
+    }
+
+    private static PackingList GetPackingListWithBox(Box ExpectedBox)
+    {
+        return new PackingList(
             PackedBoxes: 
-            new List<Box> {BoxWithDetailedBookInside}, 
+            new List<Box> {ExpectedBox}, 
             BooksThatCannotBePacked: 
             new List<Book>()
         );
-        
-        Assert.Equal(expectedPackingList.PackedBoxes[0].PackedBooks[0] , packingList.PackedBoxes[0].PackedBooks[0]);
+    }
+
+    private static Box GetBoxOfSizeFourWithBook(List<Book> ProvidedBook)
+    {
+        return new Box() {PackedBooks = ProvidedBook , Size = BoxSize.Four};
     }
 
     [Fact]
@@ -92,6 +108,15 @@ public class BoxTests
         
         //should only have one box of size 4/6/8
         ValidatePackingListContains(expectedPackingList, packingList);
+    }
+
+    private static List<Book> GetOneBookWithAllDetails()
+    {
+        var bookWithAllDetails = new List<Book> 
+        {
+            new Book() {SKU = "320.12", Name = "TEST_BOOK", Height = 4}
+        };
+        return bookWithAllDetails;
     }
 
     private static void ValidatePackingListContains(PackingList expectedPackingList, PackingList packingList)
