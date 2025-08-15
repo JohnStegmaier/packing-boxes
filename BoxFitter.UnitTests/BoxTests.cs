@@ -8,6 +8,8 @@ namespace BoxFitter.UnitTests;
 [SuppressMessage("Performance", "CA1859:Use concrete types when possible for improved performance")]
 public class BoxTests
 {
+    private const string TEST_SKU = "420.69";
+    private const string TEST_BOOK_NAME = "TEST_BOOK";
     private readonly IBoxFitter boxFitter = new SimpleBoxFitter();
 
     [Fact]
@@ -92,8 +94,8 @@ public class BoxTests
         //get a list with two books of size 2 / 3 / 4
         var twoIdenticalSizeBooks = new List<Book>
         {
-            new Book() {Height = 2},
-            new Book() {Height = 2},
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
         };
         
         //pack them in the box
@@ -112,9 +114,10 @@ public class BoxTests
 
     private static List<Book> GetOneBookWithAllDetails()
     {
+        
         var bookWithAllDetails = new List<Book> 
         {
-            new Book() {SKU = "320.12", Name = "TEST_BOOK", Height = 4}
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 4}
         };
         return bookWithAllDetails;
     }
@@ -156,7 +159,7 @@ public class BoxTests
     {
         List<Book> oneBookSmallerThanSizeFour = new()
         {
-            new Book() {Height = bookHeight}
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = bookHeight}
         };
         return oneBookSmallerThanSizeFour;
     }
