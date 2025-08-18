@@ -63,7 +63,7 @@ public class BoxTests
 
     private static PackingList GetPackingListWithOneBoxOfSizeFourContainingOneBookWithAllDetails()
     {
-        Box ExpectedBox = GetBoxOfSizeFourWithBook(GetOneBookWithAllDetails());
+        Box ExpectedBox = GetBoxOfSizeFourWithBooks(GetOneBookWithAllDetails());
         var expectedPackingList = GetPackingListWithBox(ExpectedBox);
         return expectedPackingList;
     }
@@ -83,7 +83,7 @@ public class BoxTests
         );
     }
 
-    private static Box GetBoxOfSizeFourWithBook(List<Book> ProvidedBook)
+    private static Box GetBoxOfSizeFourWithBooks(List<Book> ProvidedBook)
     {
         return new Box() {PackedBooks = ProvidedBook , Size = BoxSize.Four};
     }
@@ -95,15 +95,17 @@ public class BoxTests
         var twoIdenticalSizeBooks = new List<Book>
         {
             new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
-            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 1},
         };
         
         //pack them in the box
         var packingList = boxFitter.PackBoxes(twoIdenticalSizeBooks);
 
+        Box ExpectedBox = GetBoxOfSizeFourWithBooks(twoIdenticalSizeBooks);
+        
         var expectedPackingList = new PackingList(
             PackedBoxes: 
-            new List<Box> {new Box(){Size = BoxSize.Four}}, 
+            new List<Box> {ExpectedBox}, 
             BooksThatCannotBePacked: 
             new List<Book>()
             );
