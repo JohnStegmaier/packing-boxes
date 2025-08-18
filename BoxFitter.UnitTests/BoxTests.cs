@@ -91,27 +91,34 @@ public class BoxTests
     [Fact]
     public void ShouldPackTwoIdenticalItemsThatFitInToOneBox()
     {
-        //get a list with two books of size 2 / 3 / 4
-        var twoIdenticalSizeBooks = new List<Book>
-        {
-            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
-            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 1},
-        };
+        var packingList = boxFitter.PackBoxes(GetTwoIdenticalFullyPopulatedBooks());
         
-        //pack them in the box
-        var packingList = boxFitter.PackBoxes(twoIdenticalSizeBooks);
+        ValidatePackingListContains(
+            GetExpectedPackingListWithABoxOfSizeFourAndTwoIdenticalBooksPackedInside(), 
+            packingList);
+    }
 
-        Box ExpectedBox = GetBoxOfSizeFourWithBooks(twoIdenticalSizeBooks);
-        
+    private static PackingList GetExpectedPackingListWithABoxOfSizeFourAndTwoIdenticalBooksPackedInside()
+    {
+        Box ExpectedBox = GetBoxOfSizeFourWithBooks(GetTwoIdenticalFullyPopulatedBooks());
+
         var expectedPackingList = new PackingList(
             PackedBoxes: 
             new List<Box> {ExpectedBox}, 
             BooksThatCannotBePacked: 
             new List<Book>()
-            );
-        
-        //should only have one box of size 4/6/8
-        ValidatePackingListContains(expectedPackingList, packingList);
+        );
+        return expectedPackingList;
+    }
+
+    private static List<Book> GetTwoIdenticalFullyPopulatedBooks()
+    {
+        var twoIdenticalSizeBooks = new List<Book>
+        {
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 2},
+            new Book() {Sku = TEST_SKU, Name = TEST_BOOK_NAME, Height = 1},
+        };
+        return twoIdenticalSizeBooks;
     }
 
     private static List<Book> GetOneBookWithAllDetails()
@@ -129,18 +136,6 @@ public class BoxTests
         Assert.Equal(expectedPackingList.BooksThatCannotBePacked, packingList.BooksThatCannotBePacked);
         Assert.Equal(expectedPackingList.PackedBoxes, packingList.PackedBoxes);
     }
-
-
-    // [Fact]
-    // public void ShouldPackTwoBoxesOfSizeEightWhenTwoBooksOfSizeSevenAreGiven() 
-    //     ShouldPackTwoBoxesWhenBooksOverTheSizeIsGiven()
-    // {
-    //     var twoBooksLargerThanSizeSix = GetOneBookSmallerThanSizeFour();
-    //     
-    //     var packingList = boxFitter.PackBoxes(oneBookSmallerThanSizeFour);
-    //
-    //     Assert.Equal(OneBoxOfSizeFour(), packingList);
-    // }
 
     private void ValidateOneBoxOfSize(BoxSize expectedBoxSize, PackingList packingList)
     {
@@ -165,19 +160,4 @@ public class BoxTests
         };
         return oneBookSmallerThanSizeFour;
     }
-
-
-    //book 1 = 1inch
-    // Four 1 inch books would be box size 4
-    // Ten 1 inch books would be box size 4 and box size 6
-    // One 7 inch book and One 3 inch book would be box size 8 and box size 4
-    // One 7 inch full book two half size 1 inch books a full 3 inch book four half size 1/2 inch books
-    /*
-     *  {
-     *      books[
-     *      "Book 1"
-     *      "Book 2"
-     *      ]
-     *  }
-     */
 }
