@@ -34,10 +34,13 @@ public class SimpleBoxFitter : IBoxFitter
                 default:
                     booksThatCannotBePacked.Add(book);
                     break;
-                
             }
         }
-        listOfPackedBoxes.Add(boxToBePacked);
+
+        if (boxToBePacked.PackedBooks.Count > 0)
+        {
+            listOfPackedBoxes.Add(boxToBePacked);            
+        }
         return new PackingList(listOfPackedBoxes, booksThatCannotBePacked);
     }
 }
